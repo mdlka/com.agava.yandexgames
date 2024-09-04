@@ -33,6 +33,7 @@ namespace Agava.YandexGames.Samples
             // Always wait for it if invoking something immediately in the first scene.
             yield return YandexGamesSdk.Initialize();
 
+            Flags.Get();
             YandexGamesSdk.GameReady();
 
             canvasGroup.interactable = true;

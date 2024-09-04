@@ -244,6 +244,17 @@ const yandexGamesLibrary = {
       });
     },
 
+    getFlags: function (defaultFlags, clientFeatures, successCallbackPtr, errorCallbackPtr) {
+      yandexGames.sdk.getFlags({defaultFlags: JSON.parse(defaultFlags), clientFeatures: JSON.parse(clientFeatures)})
+        .then(function (flags) {
+          const flagsUnmanagedStringPtr = yandexGames.allocateUnmanagedString(JSON.stringify(flags));
+          dynCall('vi', successCallbackPtr, [flagsUnmanagedStringPtr]);
+          _free(flagsUnmanagedStringPtr);
+        }).catch(function (error) {
+          yandexGames.invokeErrorCallback(error, errorCallbackPtr);
+        });
+    },
+
     interstitialAdShow: function (openCallbackPtr, closeCallbackPtr, errorCallbackPtr, offlineCallbackPtr) {
       yandexGames.sdk.adv.showFullscreenAdv({
         callbacks: {
@@ -532,6 +543,15 @@ const yandexGamesLibrary = {
     const сloudSaveDataJson = UTF8ToString(сloudSaveDataJsonPtr);
 
     yandexGames.playerAccountSetCloudSaveData(сloudSaveDataJson, successCallbackPtr, errorCallbackPtr);
+  },
+
+  GetFlags: function (defaultFlagsJsonPtr, clientFeaturesJsonPtr, successCallbackPtr, errorCallbackPtr) {
+    yandexGames.throwIfSdkNotInitialized();
+
+    const defaultFlagsJson = UTF8ToString(defaultFlagsJsonPtr);
+    const clientFeaturesJson = UTF8ToString(clientFeaturesJsonPtr);
+
+    yandexGames.getFlags(defaultFlagsJson, clientFeaturesJson, successCallbackPtr, errorCallbackPtr);
   },
 
   InterstitialAdShow: function (openCallbackPtr, closeCallbackPtr, errorCallbackPtr, offlineCallbackPtr) {
