@@ -441,6 +441,10 @@ const yandexGamesLibrary = {
       });
     },
 
+    serverTime: function () {
+      return yandexGames.sdk.serverTime();
+    },
+
     allocateUnmanagedString: function (string) {
       const stringBufferSize = lengthBytesUTF8(string) + 1;
       const stringBufferPtr = _malloc(stringBufferSize);
@@ -470,6 +474,12 @@ const yandexGamesLibrary = {
     yandexGames.throwIfSdkNotInitialized();
 
     return yandexGames.getDeviceType();
+  },
+
+  GetServerTime: function () {
+    yandexGames.throwIfSdkNotInitialized();
+
+    return yandexGames.serverTime();
   },
 
   PlayerAccountStartAuthorizationPolling: function (delay, successCallbackPtr, errorCallbackPtr) {

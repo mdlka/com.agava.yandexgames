@@ -11,17 +11,11 @@ namespace Agava.YandexGames.Samples
 {
     public class PlaytestingCanvas : MonoBehaviour
     {
-        [SerializeField]
-        private Text _authorizationStatusText;
-
-        [SerializeField]
-        private Text _personalProfileDataPermissionStatusText;
-
-        [SerializeField]
-        private Text _isRunningOnYandexStatusText;
-
-        [SerializeField]
-        private InputField _cloudSaveDataInputField;
+        [SerializeField] private Text _authorizationStatusText;
+        [SerializeField] private Text _personalProfileDataPermissionStatusText;
+        [SerializeField] private Text _isRunningOnYandexStatusText;
+        [SerializeField] private Text _serverTimeText;
+        [SerializeField] private InputField _cloudSaveDataInputField;
 
         private void Awake()
         {
@@ -51,6 +45,7 @@ namespace Agava.YandexGames.Samples
             while (true)
             {
                 _authorizationStatusText.color = PlayerAccount.IsAuthorized ? Color.green : Color.red;
+                _serverTimeText.text = ServerTime.Milliseconds.ToString();
 
                 if (PlayerAccount.IsAuthorized)
                     _personalProfileDataPermissionStatusText.color = PlayerAccount.HasPersonalProfileDataPermission ? Color.green : Color.red;
